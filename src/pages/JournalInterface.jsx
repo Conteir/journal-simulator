@@ -20,7 +20,9 @@ export const JournalInterface = class JournalInterface extends React.Component {
             showContent: false,
             hdirData: [],
             ICPC2code: null,
-            suggestion: {}
+            suggestion: {},
+            hbibData: [],
+            patient: {}
         }
     }
 
@@ -156,37 +158,31 @@ export const JournalInterface = class JournalInterface extends React.Component {
             console.log("conceptId:", conceptId);  
             console.log("query:", query);
         
-            this.callPost(query);
+            this.setState({ showSpinner: true });
+        
+            const parameters = {
+                method: 'POST',
+                headers: {
+                // "Content-Type": "application/json",
+                "Origin": "https://qa.hbib.ntf.seeds.no"
+                },
+                body: JSON.stringify({
+                query: query
+                })
+            };
+    
+            fetch(hbibUrl, parameters)
+            .then(response => response.json())
+            .then(data => {
+                console.log("Got data for location:", location, "Data:", data);
+                console.log("data with the responce... and here the length can be seen", data.data.guillotine.query.length);
+                const hbibData = this.state.hbibData;
+                hbibData.push(JSON.stringify(data));
+                this.setState({hbibData: hbibData});
+            });
 
         });
     };
-    
-    
-    callPost = ((query) => {
-        this.setState({ showSpinner: true });
-        
-        const parameters = {
-            method: 'POST',
-            headers: {
-              // "Content-Type": "application/json",
-              "Origin": "https://qa.hbib.ntf.seeds.no"
-            },
-            body: JSON.stringify({
-              query: query
-            })
-        };
-    
-        fetch(hbibUrl, parameters)
-          .then(response => response.json())
-          .then(data => {
-            console.log("data with the responce... and here the length can be seen", data.data.guillotine.query.length);
-            this.setState({data: JSON.stringify(data), matches: data.data.guillotine.query.length, showSpinner: false});
-          });
-    });
-
-
-    
-
 
     render() {
         return (
@@ -301,9 +297,10 @@ export const JournalInterface = class JournalInterface extends React.Component {
                     <div className="row">
                         <div className="col-sm-12">
                             {
-                                this.state.hdirData.map((item, index) => 
+                                this.state.hbibData.map((item, index) => 
                                     <div className="content" key={index}>
                                         <HbibRender
+                                            hbibData={item}
                                         />
                                     </div>
                                 )

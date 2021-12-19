@@ -17,7 +17,7 @@ export const HbibRender = class HbibRender extends React.Component {
   }
 
   renderJson() {
-    console.log("HBibRendering: ", this.props.hbibData);
+    // console.log("HBibRendering: ", this.props.hbibData);
 
     if(!this.props.hbibData) return <></>;
     let data = JSON.parse(this.props.hbibData);

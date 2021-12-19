@@ -22,8 +22,18 @@ export const JournalInterface = class JournalInterface extends React.Component {
             ICPC2code: null,
             suggestion: {},
             hbibData: [],
-            patient: {}
+            patient: null
         }
+    }
+
+    getPatientInfo = (event) => {
+        let patientId = event.target.value;
+        console.log("patientId", patientId);
+        console.log("Type of patient option value (patient.id): ", typeof patientId);
+        let patient = patients.find(p => p.id == patientId);
+        console.log("Patient obj: ", patient);
+        this.setState( {patient: patient} );
+
     }
 
     processSuggestion = (suggestion) => {
@@ -198,7 +208,7 @@ export const JournalInterface = class JournalInterface extends React.Component {
                     <div className="row col-md-12">
                         <select
                             defaultValue={""}
-                            // onChange={this.getAcceptabilityStatus}
+                            onChange={this.getPatientInfo}
                             required
                         >
                             <option value="" disabled>

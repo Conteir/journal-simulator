@@ -197,64 +197,78 @@ export const JournalInterface = class JournalInterface extends React.Component {
     render() {
         return (
             <div className="App">
-                <header>
-                    <div className="jumbotron text-center">
+                <header className="jumbotron text-center">
+                    <div >
                         <h1>Journal simulator</h1>
                     </div>
                 </header>
 
                 <article>
+
                     <button onClick={() => console.log(this.state)}>Log state</button>
-                    <div className="row col-md-12">
-                        <select
-                            defaultValue={""}
-                            onChange={this.getPatientInfo}
-                            required
-                        >
-                            <option value="" disabled>
-                                Now treating
-                            </option>
-                            
-                            {patients.map((patients, key) => 
-                            <option 
-                                key={key} 
-                                value={patients.id}>
-                                    {patients.name}{" "}
-                                    {patients.age}{" "}
-                                    {patients.sex}
-                            </option>
-                            )}
-                        </select>
+                   
+                    <div className="row">
+                        <div className="row col-md-12 form-group">
+                            <select
+                                defaultValue={""}
+                                onChange={this.getPatientInfo}
+                                required
+                            >
+                                <option value="" disabled>
+                                    Now treating: 
+                                </option>
+                                
+                                {patients.map((patients, key) => 
+                                <option 
+                                    key={key} 
+                                    value={patients.id}>
+                                        {patients.name}{" "}
+                                        {patients.age}{" "}
+                                        {patients.sex}
+                                </option>
+                                )}
+                            </select>
+                        </div>
                     </div>
 
                     <div className="row">
-                        <div className="col-sm-6 form-group">
-                            <label htmlFor="funn"><b>Funn:</b></label>
-                            <textarea
-                                id="funn"
-                                type="text"
-                                autoComplete="off"
-                                placeholder="funn"
-                            />
-                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
 
-                        <div className="col-sm-6 form-group">
-                            <p><b>Årsak (symptom, plage eller tentativ diagnose):</b></p>
-
-                            <div className="row">
-                                <ConceptAutosuggest 
-                                    suggestCallback={this.processSuggestion} 
+                                <label htmlFor="funn"><b>Funn:</b></label>
+                                <textarea
+                                    id="funn"
+                                    type="text"
+                                    autoComplete="off"
+                                    placeholder="funn"
+                                    className="fill-width"
                                 />
                             </div>
+                        </div>
 
-                            <div className="row">
-                                {this.state.showSpinner ? <Spinner color="success" /> : null}
+
+                        <div className="col-md-6">
+                            <div className="form-group">
+
+                                <label htmlFor="funn"><b>Årsak (symptom, plage eller tentativ diagnose):</b></label>
+                                {/* <p><b>Årsak (symptom, plage eller tentativ diagnose):</b></p> */}
+
+                                <div className="row">
+                                    <ConceptAutosuggest 
+                                        suggestCallback={this.processSuggestion} 
+                                    />
+                                </div>
+
+                                <div className="row">
+                                    {this.state.showSpinner ? <Spinner color="success" /> : null}
+                                </div>
                             </div>
 
                         </div>
                     </div>
 
                     <div className="row">
+
                         <div className="col-sm-6">
 
                             <div className="form-group">
@@ -264,13 +278,11 @@ export const JournalInterface = class JournalInterface extends React.Component {
                                     type="text"
                                     autoComplete="off"
                                     placeholder="vurdering"
+                                    className="fill-width"
                                 />
                             </div>
                         </div>
-                    </div>
 
-
-                    <div className="row">
                         <div className="col-sm-6">
                             <div>
                                 <IFrame
@@ -288,10 +300,18 @@ export const JournalInterface = class JournalInterface extends React.Component {
                             </div>
                         </div>
 
-                        <div className="col-sm-6">
+                    </div>
+
+
+                    <div className="row">
+                        
+
+                        <div className="col-sm-12">
                             {
                                 this.state.hdirData.map((item, index) => 
-                                    <div className="content" key={index}>
+                                    <div 
+                                        // className="content" 
+                                        key={index}>
                                         <HdirRender
                                             data={item}
                                             // linkCallback={this.linkCallback}
@@ -302,13 +322,17 @@ export const JournalInterface = class JournalInterface extends React.Component {
                                 )
                             }
                         </div>
+
                     </div>
 
                     <div className="row">
+
                         <div className="col-sm-12">
                             {
                                 this.state.hbibData.map((item, index) => 
-                                    <div className="content" key={index}>
+                                    <div 
+                                        // className="content" 
+                                        key={index}>
                                         <HbibRender
                                             hbibData={item}
                                         />

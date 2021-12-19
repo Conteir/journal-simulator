@@ -57,9 +57,9 @@ export const ConceptAutosuggest = class ConceptAutosuggest extends React.Compone
     const currentValue = value;
     const term = value.trim().toLowerCase();
 
-    let getTermsUrl = 'https://seabreeze.conteir.no'
+    let getTermsUrl = 'https://snowstorm.conteir.no'
       + '/browser/' 
-      + "MAIN/SNOMEDCT-NO/TEST" // handle branch as just MAIN
+      + "MAIN/SNOMEDCT-NO/TESTBRANCH" // handle branch as just MAIN
       + '/descriptions?'
       + 'term=' + term
       + '&active=true&conceptActive=true&groupByConcept=true&offset=0&limit=10'

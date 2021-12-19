@@ -39,7 +39,7 @@ export const Helsebiblioteket = class Helsebiblioteket extends React.Component {
 
   suggestCallbackHbib = (suggestion, contentTypeId, contentTypeLocation) => {
 
-    const conceptId = suggestion.concept.conceptId;
+    let conceptId = suggestion.concept.conceptId;
     let contentType = contentTypeId;
     let location = contentTypeLocation;
 
